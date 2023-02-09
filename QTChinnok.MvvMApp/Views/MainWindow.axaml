@@ -1,0 +1,141 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:QTChinnok.MvvMApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="QTChinnok.MvvMApp.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen"
+        Height="500"
+        Width="800"
+        Title="MainWindow">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+      <vm:MainViewModel/>
+    </Design.DataContext>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="150"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<Image Grid.Row="0" Stretch="UniformToFill" Source="/Assets/home.jpg"/>
+
+		<TabControl Grid.Row="1" Grid.Column="0">
+			<TabItem Header="Genre(s)">
+				<StackPanel Orientation="Vertical">
+					<StackPanel Orientation="Horizontal" Margin="10">
+						<Label Margin="5">Filter:</Label>
+						<TextBox Width="250" Text="{Binding Path=GenreFilter}"></TextBox>
+						<Button Width="40" Command="{Binding Path=CommandAddGenre}" Foreground="Green" Margin="10 0 0 0">+</Button>
+						<Button Width="100" Command="{Binding Path=CommandEditGenre}" Margin="10 0 0 0">Bearbeiten</Button>
+						<Button Width="100" Command="{Binding Path=CommandDeleteGenre}" Background="Red" Foreground="White" Margin="10 0 0 0">Löschen</Button>
+					</StackPanel>
+					<DataGrid Items="{Binding Path=Genres}"
+                              SelectedItem="{Binding Path=SelectedGenre}"
+                              VerticalAlignment="Stretch"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single">
+						<DataGrid.Columns>
+							<DataGridTextColumn Width="*" Header="Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
+						</DataGrid.Columns>
+					</DataGrid>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="MediaType(s)">
+				<StackPanel Orientation="Vertical">
+					<StackPanel Orientation="Horizontal" Margin="10">
+						<Label Margin="5">Filter:</Label>
+						<TextBox Width="250" Text="{Binding Path=MediaTypeFilter}"></TextBox>
+						<Button Width="50" Command="{Binding Path=CommandAddMediaType}" Foreground="Green" Margin="10 0 0 0">+</Button>
+						<Button Width="100" Command="{Binding Path=CommandEditMediaType}" Margin="10 0 0 0">Bearbeiten</Button>
+						<Button Width="100" Command="{Binding Path=CommandDeleteMediaType}" Background="Red" Foreground="White" Margin="10 0 0 0">Löschen</Button>
+					</StackPanel>
+					<DataGrid Items="{Binding MediaTypes}"
+                              SelectedItem="{Binding Path=SelectedMediaType}"
+                              VerticalAlignment="Stretch"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single">
+						<DataGrid.Columns>
+							<DataGridTextColumn Width="*" Header="Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
+						</DataGrid.Columns>
+					</DataGrid>
+				</StackPanel>
+			</TabItem>
+      <TabItem Header="Artist(s)">
+        <StackPanel Orientation="Vertical">
+          <StackPanel Orientation="Horizontal" Margin="10">
+            <Label Margin="5">Filter:</Label>
+            <TextBox Width="250" Text="{Binding Path=ArtistFilter}"></TextBox>
+            <Button Width="50" Command="{Binding Path=CommandAddArtist}" Foreground="Green" Margin="10 0 0 0">+</Button>
+            <Button Width="100" Command="{Binding Path=CommandEditArtist}" Margin="10 0 0 0">Bearbeiten</Button>
+            <Button Width="100" Command="{Binding Path=CommandDeleteArtist}" Background="Red" Foreground="White" Margin="10 0 0 0">Löschen</Button>
+          </StackPanel>
+          <DataGrid Items="{Binding Path=Artists}"
+                              SelectedItem="{Binding Path=SelectedArtist}"
+                              VerticalAlignment="Stretch"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single">
+            <DataGrid.Columns>
+              <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="Album(s)">
+				<StackPanel Orientation="Vertical">
+					<StackPanel Orientation="Horizontal" Margin="10">
+						<Label Margin="5">Filter:</Label>
+						<TextBox Width="250" Text="{Binding Path=AlbumFilter}"></TextBox>
+						<Button Width="50" Command="{Binding Path=CommandAddAlbum}" Foreground="Green" Margin="10 0 0 0">+</Button>
+						<Button Width="100" Command="{Binding Path=CommandEditAlbum}" Margin="10 0 0 0">Bearbeiten</Button>
+						<Button Width="100" Command="{Binding Path=CommandDeleteAlbum}" Background="Red" Foreground="White" Margin="10 0 0 0">Löschen</Button>
+					</StackPanel>
+					<DataGrid Items="{Binding Path=Albums}"
+                              SelectedItem="{Binding Path=SelectedAlbum}"
+                              VerticalAlignment="Stretch"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Artist" Width="150" Binding="{Binding Path=ArtistName}"></DataGridTextColumn>
+							<DataGridTextColumn Header="Title" Width="*" Binding="{Binding Path=Title}"></DataGridTextColumn>
+						</DataGrid.Columns>
+					</DataGrid>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Track(s)">
+				<StackPanel Orientation="Vertical">
+					<StackPanel Orientation="Horizontal" Margin="10">
+						<Label Margin="5">Filter:</Label>
+						<TextBox Width="250" Text="{Binding Path=TrackFilter}"></TextBox>
+						<Button Width="50" Command="{Binding Path=CommandAddTrack}" Foreground="Green" Margin="10 0 0 0">+</Button>
+            <Button Width="100" Command="{Binding Path=CommandEditTrack}" Margin="10 0 0 0">Bearbeiten</Button>
+            <Button Width="100" Command="{Binding Path=CommandDeleteTrack}" Background="Red" Foreground="White" Margin="10 0 0 0">Löschen</Button>
+          </StackPanel>
+					<DataGrid Items="{Binding Path=Tracks}"
+                              SelectedItem="{Binding Path=SelectedTrack}"
+                              VerticalAlignment="Stretch"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Interpret" Binding="{Binding Path=Composer}"></DataGridTextColumn>
+							<DataGridTextColumn Header="Name" Width="*" Binding="{Binding Path=Name}"></DataGridTextColumn>
+						</DataGrid.Columns>
+					</DataGrid>
+				</StackPanel>
+			</TabItem>
+		</TabControl>
+	</Grid>
+
+</Window>

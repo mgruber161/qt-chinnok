@@ -16,9 +16,11 @@ namespace QTChinnok.AspMvc.Controllers.Base
         }
 
         // GET: GenresController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            using var ctrl = new Logic.Controllers.Base.GenresController();
+            var entity = await ctrl.GetByIdAsync(id);
+            return entity == null ? NotFound() : View(Models.Base.Genre.Create(entity!));
         }
 
         // GET: GenresController/Create

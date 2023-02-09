@@ -69,7 +69,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
         {
             using var ctrl = new Logic.Controllers.Base.GenresController();
             var entity = await ctrl.GetByIdAsync(id);
-            return View(Models.Base.Genre.Create(entity!));
+            return entity == null ? NotFound() : View(Models.Base.Genre.Create(entity!));
         }
 
         // POST: GenresController/Edit/5
@@ -80,7 +80,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
             try
             {
                 using var ctrl = new Logic.Controllers.Base.GenresController();
-                var entity = new Logic.Models.Base.Genre { Name = model.Name };
+                var entity = new Logic.Models.Base.Genre {Id = model.Id, Name = model.Name };
 
                 await ctrl.UpdateAsync(entity);
                 await ctrl.SaveChangesAsync();

@@ -28,12 +28,18 @@ namespace QTChinnok.AspMvc.Controllers.Base
         }
 
         // POST: GenresController/Create
-        [HttpPost]
+        [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Models.Base.Genre model)
+        public async Task<ActionResult> CreateAsync(Models.Base.Genre model)
         {
             try
             {
+                using var ctrl = new Logic.Controllers.Base.GenresController();
+                var entity = new Logic.Models.Base.Genre { Name = model.Name };
+
+                await ctrl.InsertAsync(entity);
+                await ctrl.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -8,7 +8,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
     {
         // GET: GenresController
         [HttpGet("Index")]
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> Index()
         {
             using var ctrl = new Logic.Controllers.Base.GenresController();
             var entities = await ctrl.GetAllAsync();
@@ -28,9 +28,9 @@ namespace QTChinnok.AspMvc.Controllers.Base
         }
 
         // POST: GenresController/Create
-        [HttpPost("Create")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(Models.Base.Genre model)
+        public async Task<ActionResult> Create(Models.Base.Genre model)
         {
             try
             {

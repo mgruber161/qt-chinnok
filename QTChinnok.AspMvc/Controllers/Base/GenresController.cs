@@ -119,7 +119,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
 
                 if (entity != null)
                 {
-                    await ctrl.DeleteAsync(entity);
+                    await ctrl.DeleteAsync(id);
                     await ctrl.SaveChangesAsync();
                 }
                 return RedirectToAction(nameof(Index));

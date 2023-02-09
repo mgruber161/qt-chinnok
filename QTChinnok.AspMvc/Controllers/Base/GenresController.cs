@@ -42,7 +42,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
         // GET: GenresController/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Models.Base.Genre());
         }
 
         // POST: GenresController/Create
@@ -59,6 +59,21 @@ namespace QTChinnok.AspMvc.Controllers.Base
                 return View();
             }
         }
+
+        //// POST: GenresController/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: GenresController/Edit/5
         public ActionResult Edit(int id)
@@ -80,6 +95,8 @@ namespace QTChinnok.AspMvc.Controllers.Base
                 return View();
             }
         }
+
+
 
         // GET: GenresController/Delete/5
         public ActionResult Delete(int id)

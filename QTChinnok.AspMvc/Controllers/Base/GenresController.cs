@@ -7,7 +7,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
     public class GenresController : Controller
     {
         // GET: GenresController
-        [HttpGet("Index")]
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             using var ctrl = new Logic.Controllers.Base.GenresController();
@@ -42,8 +42,9 @@ namespace QTChinnok.AspMvc.Controllers.Base
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.Error = ex.Message;
                 return View(model);
             }
         }
@@ -64,18 +65,26 @@ namespace QTChinnok.AspMvc.Controllers.Base
         //}
 
         // GET: GenresController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            using var ctrl = new Logic.Controllers.Base.GenresController();
+            var entity = await ctrl.GetByIdAsync(id);
+            return View(Models.Base.Genre.Create(entity));
         }
 
         // POST: GenresController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Models.Base.Genre model)
         {
             try
             {
+                using var ctrl = new Logic.Controllers.Base.GenresController();
+                var entity = new Logic.Models.Base.Genre { Name = model.Name };
+
+                await ctrl.UpdateAsync(entity);
+                await ctrl.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch

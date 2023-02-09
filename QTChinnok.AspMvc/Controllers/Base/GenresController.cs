@@ -5,10 +5,10 @@ namespace QTChinnok.AspMvc.Controllers.Base
 {
     public class GenresController : Controller
     {
-        // GET: GenresController
-        public ActionResult Index()
+        private List<Models.Base.Genre> dataList = new List<Models.Base.Genre>();
+        public GenresController()
         {
-            return View(new Models.Base.Genre[]
+            dataList.AddRange(new Models.Base.Genre[]
             {
                 new Models.Base.Genre
                 {
@@ -22,10 +22,15 @@ namespace QTChinnok.AspMvc.Controllers.Base
                 },
                 new Models.Base.Genre
                 {
-                    Id = 1,
+                    Id = 3,
                     Name = "Synthwave"
                 },
             });
+        }
+        // GET: GenresController
+        public ActionResult Index()
+        {
+            return View(dataList);
         }
 
         // GET: GenresController/Details/5

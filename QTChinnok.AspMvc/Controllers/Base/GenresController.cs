@@ -1,36 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 
 namespace QTChinnok.AspMvc.Controllers.Base
 {
     public class GenresController : Controller
     {
-        private List<Models.Base.Genre> dataList = new List<Models.Base.Genre>();
-        public GenresController()
-        {
-            dataList.AddRange(new Models.Base.Genre[]
-            {
-                new Models.Base.Genre
-                {
-                    Id = 1,
-                    Name = "Synthpop"
-                },
-                new Models.Base.Genre
-                {
-                    Id = 2,
-                    Name = "Darkwave"
-                },
-                new Models.Base.Genre
-                {
-                    Id = 3,
-                    Name = "Synthwave"
-                },
-            });
-        }
         // GET: GenresController
-        public ActionResult Index()
+        [HttpGet("Index")]
+        public async Task<ActionResult> IndexAsync()
         {
-            return View(dataList);
+            using var ctrl = new Logic.Controllers.Base.GenresController();
+            var entities = await ctrl.GetAllAsync();
+            return View(entities.Select(e => Models.Base.Genre.Create(e)));
         }
 
         // GET: GenresController/Details/5
@@ -48,7 +30,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
         // POST: GenresController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Models.Base.Genre model)
         {
             try
             {
@@ -56,7 +38,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 

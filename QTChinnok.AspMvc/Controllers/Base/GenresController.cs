@@ -69,7 +69,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
         {
             using var ctrl = new Logic.Controllers.Base.GenresController();
             var entity = await ctrl.GetByIdAsync(id);
-            return View(Models.Base.Genre.Create(entity));
+            return View(Models.Base.Genre.Create(entity!));
         }
 
         // POST: GenresController/Edit/5
@@ -87,9 +87,10 @@ namespace QTChinnok.AspMvc.Controllers.Base
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewBag.Error = ex.Message;
+                return View(model);
             }
         }
 

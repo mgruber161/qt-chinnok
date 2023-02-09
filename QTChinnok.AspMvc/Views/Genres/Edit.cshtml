@@ -9,12 +9,8 @@
 <h4>Genre</h4>
 <hr />
 
-@if (!string.IsNullOrEmpty(ViewBag.Error))
-{
-    <div class="alert alert-danger">
-        @ViewBag.Error
-    </div>
-}
+@await Html.PartialAsync("_Error", (string?)ViewBag.Error)
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">

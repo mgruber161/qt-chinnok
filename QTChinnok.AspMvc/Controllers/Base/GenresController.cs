@@ -80,11 +80,14 @@ namespace QTChinnok.AspMvc.Controllers.Base
             try
             {
                 using var ctrl = new Logic.Controllers.Base.GenresController();
-                var entity = new Logic.Models.Base.Genre {Id = model.Id, Name = model.Name };
+                var entity = await ctrl.GetByIdAsync(id);
 
-                await ctrl.UpdateAsync(entity);
-                await ctrl.SaveChangesAsync();
-
+                if(entity != null)
+                {
+                    entity.Name = model.Name;
+                    await ctrl.UpdateAsync(entity);
+                    await ctrl.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception ex)
@@ -97,9 +100,11 @@ namespace QTChinnok.AspMvc.Controllers.Base
 
 
         // GET: GenresController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            using var ctrl = new Logic.Controllers.Base.GenresController();
+            var entity = await ctrl.GetByIdAsync(id);
+            return entity == null ? NotFound() : View(Models.Base.Genre.Create(entity!));
         }
 
         // POST: GenresController/Delete/5

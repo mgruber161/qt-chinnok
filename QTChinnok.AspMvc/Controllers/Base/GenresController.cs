@@ -110,15 +110,24 @@ namespace QTChinnok.AspMvc.Controllers.Base
         // POST: GenresController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, Models.Base.Genre model)
         {
             try
             {
+                using var ctrl = new Logic.Controllers.Base.GenresController();
+                var entity = await ctrl.GetByIdAsync(id);
+
+                if (entity != null)
+                {
+                    await ctrl.DeleteAsync(entity);
+                    await ctrl.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Error = ex.Message;
+                return View(model);
             }
         }
     }

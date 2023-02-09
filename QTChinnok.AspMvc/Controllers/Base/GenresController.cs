@@ -8,7 +8,7 @@ namespace QTChinnok.AspMvc.Controllers.Base
         // GET: GenresController
         public ActionResult Index()
         {
-            return View("Hallo", new Models.ModelObject[0]);
+            return View(new Models.Base.Genre[0]);
         }
 
         // GET: GenresController/Details/5
